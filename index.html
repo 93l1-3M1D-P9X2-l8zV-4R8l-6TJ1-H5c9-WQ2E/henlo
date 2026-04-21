@@ -1,30 +1,42 @@
 <!DOCTYPE html>
 <html>
 <body style="background:white;font-family:sans-serif">
-
-<input id="i" style="width:100%;font-size:20px" placeholder="eelslap,slope,drivemad">
-<button onclick="build()">load</button>
-
+<input id="s" style="width:100%;font-size:20px" placeholder="search...">
 <div id="l"></div>
-<iframe id="f" style="position:fixed;top:0;left:0;width:100%;height:100%;border:0;display:none"></iframe>
+
 <script>
-function build(){
+const games=["eelslap","slope","drivemad"]
+
+const l=document.getElementById("l")
+const s=document.getElementById("s")
+function openGame(g){
+let w=window.open("about:blank")
+w.document.write(`
+<!DOCTYPE html>
+<html>
+<body style="margin:0">
+<iframe src="Files/${g}/" style="position:fixed;top:0;left:0;width:100%;height:100%;border:0"></iframe>
+</body>
+</html>
+`)
+w.document.close()
+}
+function render(filter=""){
 l.innerHTML=""
-i.value.split(",").forEach(n=>{
-n=n.trim()
-if(!n)return
+games
+.filter(g=>g.toLowerCase().includes(filter.toLowerCase()))
+.forEach(g=>{
 let a=document.createElement("a")
-a.textContent=n
+a.textContent=g
 a.href="#"
 a.style.display="block"
 a.style.color="blue"
-a.onclick=()=>{
-f.style.display="block"
-f.src="Files/"+n+"/"
-}
+a.onclick=()=>openGame(g)
 l.appendChild(a)
 })
 }
+s.oninput=()=>render(s.value)
+render()
 </script>
 
 </body>
