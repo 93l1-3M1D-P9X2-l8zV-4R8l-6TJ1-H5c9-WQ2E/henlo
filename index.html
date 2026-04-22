@@ -3,12 +3,12 @@
 <body style="background:white;font-family:sans-serif">
 <input id="s" style="width:100%;font-size:20px" placeholder="search...">
 <div id="l"></div>
-
 <script>
-const games=["eelslap","Happy Wheels","WebGL Fluid Simulation","Deadly Descent"]
+const games=["eelslap","WebGL Fluid Simulation","Happy Wheels","Deadly Descent"].sort((a,b)=>a.localeCompare(b))
 
 const l=document.getElementById("l")
 const s=document.getElementById("s")
+s.placeholder="search... ("+games.length+" games)"
 function openGame(g){
 let w=window.open("about:blank")
 w.document.write(`
